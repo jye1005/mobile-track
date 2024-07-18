@@ -1,4 +1,4 @@
-int SomeFn(var add, int number_one, int number_two) {
+int SomeFn(Function add, int number_one, int number_two) {
   return add(number_one, number_two);
 }
 
