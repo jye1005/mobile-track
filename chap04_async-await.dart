@@ -19,6 +19,8 @@ Future<void> main() async {
   print('Starting application...');
 
   await login();
-  await fetchUserProfile();
-  await fetchNotifications();
+  await Future.wait([
+    fetchUserProfile(),
+    fetchNotifications(),
+  ]);
 }
