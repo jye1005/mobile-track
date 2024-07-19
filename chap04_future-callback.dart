@@ -1,14 +1,14 @@
-Future<Map<String, String>> login() async {
+Future<Map<String, String>> login() {
   return Future.delayed(
       Duration(seconds: 2), () => {'id': 'user123', 'token': 'abc123'});
 }
 
-Future<Map<String, String>> fetchUserProfile() async {
+Future<Map<String, String>> fetchUserProfile() {
   return Future.delayed(
       Duration(seconds: 1), () => {'id': 'John123', 'name': 'John'});
 }
 
-Future<String> fetchNotifications() async {
+Future<String> fetchNotifications() {
   return Future.delayed(
       Duration(seconds: 1, milliseconds: 500), () => '로그인 되었습니다.');
 }
