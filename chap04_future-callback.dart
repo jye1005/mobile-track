@@ -8,9 +8,9 @@ Future<Map<String, String>> fetchUserProfile() {
       Duration(seconds: 1), () => {'id': 'John123', 'name': 'John'});
 }
 
-Future<String> fetchNotifications() {
+Future<List<String>> fetchNotifications() {
   return Future.delayed(
-      Duration(seconds: 1, milliseconds: 500), () => '로그인 되었습니다.');
+      Duration(seconds: 1, milliseconds: 500), () => ['알림 1', '알림 2', '알림 3']);
 }
 
 void main() {

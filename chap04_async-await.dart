@@ -12,7 +12,7 @@ Future<void> fetchUserProfile() async {
 
 Future<void> fetchNotifications() async {
   await Future.delayed(Duration(seconds: 1, milliseconds: 500));
-  print('로그인 되었습니다.');
+  print(['Notification 1', 'Notification 2', 'Notification 3']);
 }
 
 Future<void> main() async {
