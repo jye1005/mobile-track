@@ -19,15 +19,14 @@ class _FirstPageState extends State<FirstPage> {
   final TextEditingController _controllerTwo = TextEditingController();
   String _errorMessage = "";
 
+  bool _isValidNumber(int? value) {
+    return value != null && value >= 1 && value <= 100;
+  }
+
   void _navigateToSecondPage(BuildContext context, String operator) {
     int? numberOne = int.tryParse(_controllerOne.text);
     int? numberTwo = int.tryParse(_controllerTwo.text);
-    if (numberOne == null ||
-        numberTwo == null ||
-        numberOne < 1 ||
-        numberOne > 100 ||
-        numberTwo < 1 ||
-        numberTwo > 100) {
+    if (!_isValidNumber(numberOne) || !_isValidNumber(numberTwo)) {
       setState(() {
         _errorMessage = "입력은 1부터 100 사이의 숫자여야 합니다.";
       });
@@ -37,7 +36,9 @@ class _FirstPageState extends State<FirstPage> {
     Navigator.of(context).push(
       MaterialPageRoute(
           builder: (context) => SecondPage(
-              numberOne: numberOne, numberTwo: numberTwo, operator: operator)),
+              numberOne: numberOne!,
+              numberTwo: numberTwo!,
+              operator: operator)),
     );
   }
 
