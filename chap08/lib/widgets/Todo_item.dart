@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 class TodoItem extends StatelessWidget {
   final String content;
-  final int index; // Ensure this is added if not already present
+  final int index;
+  final Function(int, String) onUpdate; // 추가된 부분
 
-  TodoItem({required this.content, required this.index, Key? key})
+  TodoItem(
+      {required this.content,
+      required this.index,
+      required this.onUpdate,
+      Key? key})
       : super(key: key);
 
   @override
@@ -24,21 +29,23 @@ class TodoItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/modify-todo',
-                      arguments: {'content': content, 'index': index},
-                    );
-                  },
-                  child:
-                      const Text('수정', style: TextStyle(color: Colors.black))),
+                onPressed: () async {
+                  var result = await Navigator.pushNamed(
+                    context,
+                    '/modify-todo',
+                    arguments: {'content': content, 'index': index},
+                  );
+                  if (result != null) {
+                    Map resultMap = result as Map;
+                    onUpdate(index, resultMap['content']);
+                  }
+                },
+                child: const Text('수정', style: TextStyle(color: Colors.black)),
+              ),
               TextButton(
-                  onPressed: () {
-                    // Implement deletion or completion functionality
-                  },
-                  child:
-                      const Text('완료', style: TextStyle(color: Colors.black))),
+                onPressed: () {},
+                child: const Text('완료', style: TextStyle(color: Colors.black)),
+              ),
             ],
           )
         ],

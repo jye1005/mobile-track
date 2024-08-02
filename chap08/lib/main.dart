@@ -23,7 +23,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class TodoListPage extends StatelessWidget {
+class TodoListPage extends StatefulWidget {
+  const TodoListPage({Key? key}) : super(key: key);
+
+  @override
+  _TodoListPageState createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
   final List<String> data = [
     'Todo Item 1',
     'Todo Item 2',
@@ -37,19 +44,28 @@ class TodoListPage extends StatelessWidget {
     'Todo Item 10',
   ];
 
-  TodoListPage({Key? key}) : super(key: key);
+  void updateTodo(int index, String newContent) {
+    setState(() {
+      data[index] = newContent;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('First Page'), backgroundColor: Colors.white),
-      body: Center(
-        child: ListView.builder(
-          itemBuilder: (context, index) =>
-              TodoItem(content: data[index], index: index),
-          itemCount: data.length,
-        ),
+        title: const Text('Todo List'),
+        backgroundColor: Colors.white,
+      ),
+      body: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return TodoItem(
+            content: data[index],
+            index: index,
+            onUpdate: updateTodo,
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -121,7 +137,8 @@ class ModifyTodoPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context,
+                    {'index': args['index'], 'content': controller.text});
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text('투두가 수정되었습니다!')));
               },
