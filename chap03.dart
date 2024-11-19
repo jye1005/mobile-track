@@ -6,7 +6,8 @@ class Account {
   Account(this.name, this.accountNumber, this.balance);
 
   void deposit(double amount) {
-    balance += amount;
+    //수정
+    balance -= amount;
   }
 
   void withdraw(double amount) {
